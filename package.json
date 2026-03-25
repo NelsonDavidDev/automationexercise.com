@@ -1,0 +1,23 @@
+{
+  "name": "automationexercise.com",
+  "version": "1.0.0",
+  "description": "Proyecto de automatización de pruebas para la página web AutomationExercise, enfocado en validar funcionalidades clave utilizando buenas prácticas de aseguramiento de calidad.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NelsonDavidDev/automationexercise.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/NelsonDavidDev/automationexercise.com/issues"
+  },
+  "homepage": "https://github.com/NelsonDavidDev/automationexercise.com#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0"
+  }
+}

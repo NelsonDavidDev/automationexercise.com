@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { generateUser } from '../../factories/userFactory';
+
 
 test('Register User', async ({ page }) => {
 
@@ -16,21 +18,18 @@ test('Register User', async ({ page }) => {
 
   // Enter name and email address
   /*Formas de enviar datos:
-    Generar datos dinámicos (Usado en este ejemplo)
+    Generar datos dinámicos 
     Usar librerías para generar datos (Faker)
     Variables de entorno (Útil para ambientes Pruebas/UAT/Prod)
-    Usar factory
+    Usar factory (Usado en este ejemplo)
     Enviar datos por archivo CSV
   */
 
-  const timestamp = Date.now();
+  const user = generateUser();
 
-  const name = `Nelson_${timestamp}`;
-  const email = `nelson_${timestamp}@test.com`;
+  await page.locator('input[data-qa=\'signup-name\']').fill(user.name);
 
-  await page.locator('input[data-qa=\'signup-name\']').fill(name);
-
-  await page.locator('input[data-qa=\'signup-email\']').fill(email);
+  await page.locator('input[data-qa=\'signup-email\']').fill(user.email);
 
   await page.pause()
   

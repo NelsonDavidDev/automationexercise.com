@@ -104,3 +104,35 @@ test("Register User", async ({ page }) => {
   await page.locator("[data-qa='continue-button']").click();
 
 });
+
+test("Login User with correct email and password", async ({ page }) => {
+
+  //Navigate to url 'http://automationexercise.com'
+  await page.goto("http://automationexercise.com");
+
+  // Verify that home page is visible successfully
+  await expect(page.locator("#slider")).toBeVisible();
+
+  //Click on 'Signup / Login' button
+  await page.locator("a[href='/login']").click();
+
+  //Verify 'Login to your account' is visible
+  await expect(page.getByText("Login to your account")).toBeVisible();
+
+  //Enter correct email address and password
+  await page.locator("[data-qa='login-email']").fill("Nelson.dev@test.com");
+  await page.locator("[data-qa='login-password']").fill("Test123*");
+
+  //Click 'login' button
+  await page.locator("[data-qa='login-button']").click();
+
+  //Verify that 'Logged in as username' is visible
+  await expect(page.getByText(" Logged in as ")).toContainText("Logged in as Nelson")
+
+  //Click 'Logout' button
+  await page.locator("a[href='/logout']").click();
+
+  //Verify 'Login to your account' is visible
+  await expect(page.getByText("Login to your account")).toBeVisible();
+  
+});

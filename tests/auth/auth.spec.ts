@@ -134,7 +134,5 @@ test("Login User with correct email and password", async ({ page }) => {
 
   //Verify 'Login to your account' is visible
   await expect(page.getByText("Login to your account")).toBeVisible();
-
-  await page.pause();
-
+  
 });

@@ -136,3 +136,33 @@ test("Login User with correct email and password", async ({ page }) => {
   await expect(page.getByText("Login to your account")).toBeVisible();
   
 });
+
+test("Login User with incorrect email and password", async ({ page }) => {
+
+  //Navigate to url 'http://automationexercise.com'
+  await page.goto("http://automationexercise.com");
+
+  // Verify that home page is visible successfully
+  await expect(page.locator("#slider")).toBeVisible();
+
+  //Click on 'Signup / Login' button
+  await page.locator("a[href='/login']").click();
+
+  //Verify 'Login to your account' is visible
+  await expect(page.getByText("Login to your account")).toBeVisible();
+
+  //Enter incorrect email address and password
+
+  const user = generateUser();
+
+  await page.locator("[data-qa='login-email']").fill(user.email);
+  await page.locator("[data-qa='login-password']").fill(user.password);
+
+  //Click 'login' button
+  await page.locator("[data-qa='login-button']").click();
+
+  await page.pause();
+
+  ////Verify error 'Your email or password is incorrect!' is visible
+  await expect(page.getByText("Your email or password is incorrect!")).toBeVisible();
+});

@@ -119,9 +119,16 @@ test("Login User with correct email and password", async ({ page }) => {
   //Verify 'Login to your account' is visible
   await expect(page.getByText("Login to your account")).toBeVisible();
 
-  //Enter correct email address and password
-  await page.locator("[data-qa='login-email']").fill("Nelson.dev@test.com");
-  await page.locator("[data-qa='login-password']").fill("Test123*");
+  //Enter correct email address and password from environment variables
+  const loginEmail = process.env.LOGIN_EMAIL;
+  const loginPassword = process.env.LOGIN_PASSWORD;
+
+  if (!loginEmail || !loginPassword) {
+    throw new Error('LOGIN_EMAIL and LOGIN_PASSWORD must be set in environment variables');
+  }
+
+  await page.locator("[data-qa='login-email']").fill(loginEmail);
+  await page.locator("[data-qa='login-password']").fill(loginPassword);
 
   //Click 'login' button
   await page.locator("[data-qa='login-button']").click();
@@ -134,6 +141,8 @@ test("Login User with correct email and password", async ({ page }) => {
 
   //Verify 'Login to your account' is visible
   await expect(page.getByText("Login to your account")).toBeVisible();
+
+  
   
 });
 
@@ -152,7 +161,6 @@ test("Login User with incorrect email and password", async ({ page }) => {
   await expect(page.getByText("Login to your account")).toBeVisible();
 
   //Enter incorrect email address and password
-
   const user = generateUser();
 
   await page.locator("[data-qa='login-email']").fill(user.email);
@@ -160,8 +168,6 @@ test("Login User with incorrect email and password", async ({ page }) => {
 
   //Click 'login' button
   await page.locator("[data-qa='login-button']").click();
-
-  await page.pause();
 
   ////Verify error 'Your email or password is incorrect!' is visible
   await expect(page.getByText("Your email or password is incorrect!")).toBeVisible();
